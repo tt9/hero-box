@@ -3,7 +3,7 @@ import { SpriteAnimationConfig } from '../sprite-animation-config'
 export const FireGolemRunAnimationConfig: SpriteAnimationConfig = {
   key: 'fire-golem-run',
   frameMax: 5,
-  frameRate: 12,
+  frameRate: 6,
   prefix: 'fire-golem-run-'
 }
 

@@ -34,6 +34,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "mobile-device-detect": "^0.4.3",
     "phaser": "^3.55.2"
   }
 }

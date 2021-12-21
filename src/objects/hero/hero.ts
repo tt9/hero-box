@@ -49,7 +49,6 @@ export class Hero extends GameObjectParent {
 
   playRunAnimation() {
     const { key } = HeroRunAnimationConfig
-    console.log(key)
     this.playAnimation(key)
   }
 

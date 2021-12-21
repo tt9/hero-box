@@ -2,12 +2,15 @@ import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
 import { GameObjectParent } from '../game-object-parent'
-import { FireGolemIdleAnimationConfig } from './fire-golem-animations'
+import { FireGolemIdleAnimationConfig, FireGolemRunAnimationConfig } from './fire-golem-animations'
 
 
 export class FireGolem extends GameObjectParent {
 
   public readonly scene: ParentScene
+
+  public moving = false
+
   constructor(scene: ParentScene, x: number, y: number) {
     super(scene, x, y, Assets.FireGolemTextureAtlasKey)
     this.scene = scene
@@ -19,6 +22,36 @@ export class FireGolem extends GameObjectParent {
       body.setCollideWorldBounds(true)
 
     this.playAnimation(FireGolemIdleAnimationConfig.key)
+  }
+
+  update() {
+    const body = this.getBody()
+    const attackDistance = 25
+    if (this.scene.hero) {
+      if (this.scene.hero.x - attackDistance > this.x) {
+        body.setVelocityX(50)
+        this.flipX = true
+        this.moving = true
+      }
+
+      else if (this.scene.hero.x + attackDistance < this.x) {
+        body.setVelocityX(-50)
+        this.flipX = false
+        this.moving = true
+      }
+
+      else {
+        body.setVelocityX(0)
+        this.moving = false
+      }
+    }
+
+
+    if (this.moving) {
+      this.playAnimation(FireGolemRunAnimationConfig.key)
+    } else {
+      this.playAnimation(FireGolemIdleAnimationConfig.key)
+    }
   }
 
 
@@ -47,6 +80,18 @@ export class FireGolem extends GameObjectParent {
       }),
       repeat: -1,
       frameRate: FireGolemIdleAnimationConfig.frameRate
+    })
+
+    global.anims.create({
+      key: FireGolemRunAnimationConfig.key,
+      frames: global.anims.generateFrameNames(Assets.FireGolemTextureAtlasKey, {
+        prefix: FireGolemRunAnimationConfig.prefix,
+        end: FireGolemRunAnimationConfig.frameMax,
+        start: 0,
+        zeroPad: 2
+      }),
+      repeat: -1,
+      frameRate: FireGolemRunAnimationConfig.frameRate
     })
   }
 

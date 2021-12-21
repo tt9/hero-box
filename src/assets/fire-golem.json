@@ -1,0 +1,985 @@
+{
+	"textures": [
+		{
+			"image": "texture",
+			"format": "RGBA8888",
+			"size": {
+				"w": 512,
+				"h": 512
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "fire-golem-die-06",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-05",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-06",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-05",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-06",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-07",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-08",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack2-09",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-05",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-attack-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-07",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-die-08",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-fall-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-fall-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-hurt-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-hurt-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-hurt-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-idle-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-idle-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-idle-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-idle-03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 228,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-idle-04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 285,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-jump-loop-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 0,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-jump-loop-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 64,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-jump-rdy-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 128,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-jump-rdy-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 192,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 256,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 320,
+						"y": 342,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 384,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 384,
+						"y": 57,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 384,
+						"y": 114,
+						"w": 64,
+						"h": 57
+					}
+				},
+				{
+					"filename": "fire-golem-run-05",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 57
+					},
+					"frame": {
+						"x": 384,
+						"y": 171,
+						"w": 64,
+						"h": 57
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}

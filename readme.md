@@ -6,3 +6,8 @@ Uses Phaser 3 as a game engine
 
 See example [here](https://herobox-268b6.web.app/)
 
+### Run locally
+
+`npm install`
+
+`npm run start`

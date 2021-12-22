@@ -44,7 +44,18 @@ export class PreloadScene extends Phaser.Scene {
 
     this.load.image(Assets.PlatformTilesImageKey, './assets/maps/plat_tiles.png')
     this.load.tilemapTiledJSON(Assets.TestLevelTileMapKey, './assets/maps/test-level.json')
+    this.load.tilemapTiledJSON(Assets.BattleMapTileMapKey, './assets/maps/battle-map.json')
 
+    this.load.image(Assets.BackgroundPlain1ImageKey, './assets/maps/bg-plain1.png')
+    this.load.image(Assets.BackgroundPlain2ImageKey, './assets/maps/bg-plain2.png')
+    this.load.image(Assets.BackgroundPlain3ImageKey, './assets/maps/bg-plain3.png')
+    this.load.image(Assets.BackgroundPlain4ImageKey, './assets/maps/bg-plain4.png')
+    this.load.image(Assets.BackgroundPlantsImageKey, './assets/maps/bg-plants.png')
+    this.load.image(Assets.BackgroundTrees1ImageKey, './assets/maps/bg-trees1.png')
+    this.load.image(Assets.BackgroundTrees2ImageKey, './assets/maps/bg-trees2.png')
+    this.load.image(Assets.BackgroundCloudsImageKey, './assets/maps/clouds.png')
+    this.load.image(Assets.BackgroundSkyImageKey, './assets/maps/sky.png')
+    this.load.image(Assets.BackgroundSky2ImageKey, './assets/maps/sky2.png')
 
     this.load.on('progress', () => this.updateBar())
     this.load.on('complete', () => this.complete())
@@ -82,7 +93,8 @@ export class PreloadScene extends Phaser.Scene {
       FireGolem
     ])
 
-    this.scene.start(Scenes.TestScene)
+    // this.scene.start(Scenes.TestScene)
+    this.scene.start(Scenes.BattleScene)
   }
 
   createLoadingBar() {

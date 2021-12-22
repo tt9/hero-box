@@ -6,7 +6,7 @@ import { HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationC
 
 export class Hero extends GameObjectParent {
 
-
+  private health = 100
 
   private attackDurationFrames = 24
   private attackDelayFrames = 45
@@ -86,13 +86,17 @@ export class Hero extends GameObjectParent {
     const body = this.getBody()
     if (body)
       body.setCollideWorldBounds(true)
-    body.setSize(10, 32)
+    body.setSize(14, 30)
     body.setDrag(325, 10)
     body.setMaxVelocityX(125)
+
+
 
   }
 
   update() {
+
+
 
     const body = this.getBody()
     this.frameCount++
@@ -177,6 +181,15 @@ export class Hero extends GameObjectParent {
     } else {
       this.playIdleAnimation()
     }
+
+    // health bar
+    this.scene.graphics.fillStyle(0x00ff00)
+    this.scene.graphics.fillRect(body.x - 7, body.y - 5, 28, 4)
+
+    // hit box debugging
+    // this.scene.graphics.lineStyle(1, 0xff00ff, .8)
+    // this.scene.graphics.strokeRect(body.x, body.y, body.width, body.height)
+
 
   }
 

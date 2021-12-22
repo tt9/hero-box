@@ -12,5 +12,17 @@ export const Assets = {
   ControlPadImageKey: 'control-pad',
 
   PlatformTilesImageKey: 'plat_tiles',
-  TestLevelTileMapKey: 'test-level'
+  TestLevelTileMapKey: 'test-level',
+  BattleMapTileMapKey: 'battle-map',
+
+  BackgroundPlain1ImageKey: 'bg-plain1',
+  BackgroundPlain2ImageKey: 'bg-plain2',
+  BackgroundPlain3ImageKey: 'bg-plain3',
+  BackgroundPlain4ImageKey: 'bg-plain4',
+  BackgroundPlantsImageKey: 'bg-plants',
+  BackgroundTrees1ImageKey: 'bg-trees1',
+  BackgroundTrees2ImageKey: 'bg-trees2',
+  BackgroundCloudsImageKey: 'clouds',
+  BackgroundSkyImageKey: 'sky',
+  BackgroundSky2ImageKey: 'sky2'
 }

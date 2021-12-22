@@ -2,5 +2,6 @@ export const Scenes = {
   MainScene: 'MainScene',
   PreloadScene: 'PreloadScene',
   OverworldScene: 'OverworldScene',
-  TestScene: 'TestScene'
+  TestScene: 'TestScene',
+  BattleScene: 'BattleScene'
 }

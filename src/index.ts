@@ -6,6 +6,7 @@ import { GameConfig } from './constants/game-config'
 import { TestScene } from './scenes/test-scene'
 import { OverworldScene } from './scenes/overworld-scene'
 import { MobileControlPadPlugin } from './plugins/mobile-control-pad-plugin'
+import { BattleScene } from './scenes/battle-scene'
 
 const config = {
   type: Phaser.AUTO,
@@ -15,7 +16,13 @@ const config = {
   width: GameConfig.width,
   height: GameConfig.height,
   backgroundColor: GameConfig.backgroundColor,
-  scene: [PreloadScene, MainScene, TestScene, OverworldScene],
+  scene: [
+    PreloadScene,
+    MainScene,
+    TestScene,
+    OverworldScene,
+    BattleScene
+  ],
   pixelArt: true,
   physics: {
     default: 'arcade',

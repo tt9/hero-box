@@ -2,6 +2,7 @@ import * as Phaser from 'phaser'
 
 export abstract class GameObjectParent extends Phaser.GameObjects.Sprite {
   public currentAnimationKey: string = null
+  public frameCount = 0
 
   stopAnimations() {
     this.stop()

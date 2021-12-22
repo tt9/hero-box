@@ -27,3 +27,11 @@ export const HeroJumpAnimationConfig: SpriteAnimationConfig = {
   frameRate: 12,
   prefix: 'adventurer-jump-'
 }
+
+
+export const HeroSlideAnimationConfig: SpriteAnimationConfig = {
+  key: 'hero-slide',
+  frameMax: 1,
+  frameRate: 8,
+  prefix: 'adventurer-slide-'
+}

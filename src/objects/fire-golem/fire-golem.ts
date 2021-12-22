@@ -44,6 +44,9 @@ export class FireGolem extends GameObjectParent {
         body.setVelocityX(0)
         this.moving = false
       }
+
+
+
     }
 
 

@@ -30,22 +30,20 @@ export class PreloadScene extends Phaser.Scene {
   preload() {
     this.createLoadingBar()
     // Load assets
-    this.load.atlas(Assets.HeroTextureAtlasKey, './assets/hero.png', './assets/hero.json')
-    this.load.atlas(Assets.FireGolemTextureAtlasKey, './assets/fire-golem.png', './assets/fire-golem.json')
+    this.load.atlas(Assets.HeroTextureAtlasKey, './assets/hero/hero.png', './assets/hero/hero.json')
+    this.load.atlas(Assets.FireGolemTextureAtlasKey, './assets/fire-golem/fire-golem.png', './assets/fire-golem/fire-golem.json')
 
-    this.load.image(Assets.JoystickBaseImageKey, './assets/base.png')
-    this.load.image(Assets.JoystickBodyImageKey, './assets/body.png')
-    this.load.image(Assets.JoystickCapImageKey, './assets/cap.png')
+    this.load.image(Assets.MountainBackgroundImageKey, './assets/mountain-bg/parallax-mountain-bg.png')
+    this.load.image(Assets.MountainForegroundTreesImageKey, './assets/mountain-bg/parallax-mountain-foreground-trees.png')
+    this.load.image(Assets.MountainBackgroundMountainFarImageKey, './assets/mountain-bg/parallax-mountain-mountain-far.png')
+    this.load.image(Assets.MountainBackgroundTreesImageKey, './assets/mountain-bg/parallax-mountain-trees.png')
+    this.load.image(Assets.MountainBackgroundMountainsImageKey, './assets/mountain-bg/parallax-mountain-mountains.png')
 
-    this.load.image(Assets.MountainBackgroundImageKey, './assets/parallax-mountain-bg.png')
-    this.load.image(Assets.MountainForegroundTreesImageKey, './assets/parallax-mountain-foreground-trees.png')
-    this.load.image(Assets.MountainBackgroundMountainFarImageKey, './assets/parallax-mountain-mountain-far.png')
-    this.load.image(Assets.MountainBackgroundTreesImageKey, './assets/parallax-mountain-trees.png')
-    this.load.image(Assets.MountainBackgroundMountainsImageKey, './assets/parallax-mountain-mountains.png')
 
-    this.load.image(Assets.SwordIconImageKey, './assets/swordicon.png')
     this.load.image(Assets.ControlPadImageKey, './assets/controlpad.png')
 
+    this.load.image(Assets.PlatformTilesImageKey, './assets/maps/plat_tiles.png')
+    this.load.tilemapTiledJSON(Assets.TestLevelTileMapKey, './assets/maps/test-level.json')
 
 
     this.load.on('progress', () => this.updateBar())

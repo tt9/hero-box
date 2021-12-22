@@ -2,19 +2,23 @@ import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
 import { GameObjectParent } from '../game-object-parent'
-import { HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig } from './hero-animations'
+import { HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig, HeroSlideAnimationConfig } from './hero-animations'
 
 export class Hero extends GameObjectParent {
 
-  private frameCount = 0
+
 
   private attackDurationFrames = 24
   private attackDelayFrames = 45
   private lastAttackFrame = Number.MIN_SAFE_INTEGER
 
-  private jumpDurationFrames = 60
-  private jumpDelayFrames = 80
+  private jumpDurationFrames = 40
+  private jumpDelayFrames = 40
   private lastJumpFrame = Number.MIN_SAFE_INTEGER
+  public hasTouchedGround = true
+
+  public isSliding = false
+  public canSlide = true
 
   private keys: Phaser.Types.Input.Keyboard.CursorKeys
 
@@ -32,11 +36,15 @@ export class Hero extends GameObjectParent {
       left: padLeft,
       right: padRight
     } = this.scene.mobileControlPadPlugin.keys
-    return left.isDown || right.isDown || up.isDown || down.isDown || padLeft || padRight
+    return left.isDown || right.isDown || up.isDown || padLeft || padRight
   }
 
   get isJumping() {
     return this.frameCount - this.lastJumpFrame < this.jumpDurationFrames
+  }
+
+  get canJump() {
+    return !this.isJumping && this.hasTouchedGround
   }
 
   constructor(scene: ParentScene, x: number, y: number) {
@@ -68,51 +76,82 @@ export class Hero extends GameObjectParent {
     this.playAnimation(key, true)
   }
 
+  playSlideAnimation() {
+    // const { key } = HeroSlideAnimationConfig
+    // this.playAnimation(key, false)
+    this.setFrame('adventurer-slide-00')
+  }
+
   create() {
     const body = this.getBody()
     if (body)
       body.setCollideWorldBounds(true)
+    body.setSize(10, 32)
+    body.setDrag(325, 10)
+    body.setMaxVelocityX(125)
+
   }
 
   update() {
 
-    const physicsBody = this.getBody()
-
-
-    if (this.isJumping) {
-      physicsBody.setDrag(100, 10)
-    } else {
-      physicsBody.setDrag(300, 10)
-    }
-
+    const body = this.getBody()
     this.frameCount++
-    const { left, right, up, space } = this.keys
+    const { left, right, up, space, down } = this.keys
 
     const {
       up: padUp,
       left: padLeft,
       right: padRight,
-      attack: padAttack
+      attack: padAttack,
+      attackLeft,
+      attackRight,
+      defend
     } = this.scene.mobileControlPadPlugin.keys
 
-    if (left.isDown || padLeft) {
-      physicsBody.setVelocityX(-100)
+    if (!this.isAttacking && (down.isDown || defend) && this.canSlide) {
+      if (Math.abs(body.velocity.x) > 100) {
+        this.isSliding = true
+        body.setDrag(15, 0)
+      } else {
+        this.isSliding = false
+        body.setDrag(325, 10)
+        this.canSlide = false
+      }
+    } else {
+      this.isSliding = false
+      body.setDrag(325, 10)
+    }
+
+    if (!down.isDown && !defend) {
+      this.canSlide = true
+    }
+
+
+    if (!this.isSliding && (left.isDown || padLeft)) {
+      body.setVelocityX(-125)
+      // body.setAccelerationX(-325)
       this.setFlipX(true)
 
+    } else if (!this.isSliding && (right.isDown || padRight)) {
+      body.setVelocityX(125)
 
-    } else if (right.isDown || padRight) {
-      physicsBody.setVelocityX(100)
+      // body.setAccelerationX(325)
       this.setFlipX(false)
 
     } else {
-      // this.body.setVelocityX(0)
-
-
+      // body.setAccelerationX(0)
     }
 
-    if ((up.isDown || padUp) && !this.isJumping) {
+
+    if (attackLeft)
+      this.setFlipX(true)
+    if (attackRight)
+      this.setFlipX(false)
+
+    if ((up.isDown || padUp) && this.canJump) {
       if (this.frameCount - this.lastJumpFrame > this.jumpDelayFrames) {
-        physicsBody.setVelocityY(-250)
+        this.hasTouchedGround = false
+        body.setVelocityY(-350)
         this.lastJumpFrame = this.frameCount
       }
     }
@@ -120,15 +159,19 @@ export class Hero extends GameObjectParent {
 
     if (space.isDown || padAttack) {
       if (this.frameCount - this.lastAttackFrame > this.attackDelayFrames) {
-
+        body.setDrag(325, 10)
+        this.isSliding = false
         this.lastAttackFrame = this.frameCount
       }
     }
 
+
     if (this.isAttacking) {
       this.playAttackAnimation()
-    } else if (this.isJumping) {
+    } else if (this.isJumping || !this.hasTouchedGround) {
       this.playJumpAnimation()
+    } else if (this.isSliding) {
+      this.playSlideAnimation()
     } else if (this.isMoving) {
       this.playRunAnimation()
     } else {
@@ -201,6 +244,18 @@ export class Hero extends GameObjectParent {
       }),
       repeat: 0,
       frameRate: HeroJumpAnimationConfig.frameRate
+    })
+
+    global.anims.create({
+      key: HeroSlideAnimationConfig.key,
+      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
+        prefix: HeroSlideAnimationConfig.prefix,
+        end: HeroSlideAnimationConfig.frameMax,
+        start: 0,
+        zeroPad: 2
+      }),
+      repeat: -1,
+      frameRate: HeroSlideAnimationConfig.frameRate
     })
   }
 }

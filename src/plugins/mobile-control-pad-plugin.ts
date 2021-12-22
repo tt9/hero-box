@@ -7,7 +7,10 @@ export class MobileControlPadPlugin extends Phaser.Plugins.ScenePlugin {
     left: false,
     right: false,
     up: false,
-    attack: false
+    attack: false,
+    attackLeft: false,
+    attackRight: false,
+    defend: false
   }
 
 
@@ -35,7 +38,7 @@ export class MobileControlPadPlugin extends Phaser.Plugins.ScenePlugin {
 
     // left button
     const leftButton = this.scene.add
-      .circle(x - bigButtonRadius, y + 30, bigButtonRadius)
+      .circle(x - bigButtonRadius, y + 24, bigButtonRadius)
       .setScrollFactor(0)
       .setInteractive()
       .on('pointerdown', () => {
@@ -53,7 +56,7 @@ export class MobileControlPadPlugin extends Phaser.Plugins.ScenePlugin {
 
     // right Button
     const rightButton = this.scene.add
-      .circle(x + bigButtonRadius, y + 30, bigButtonRadius)
+      .circle(x + bigButtonRadius, y + 24, bigButtonRadius)
       .setScrollFactor(0)
       .setInteractive().on('pointerdown', () => {
         this.keys.right = true
@@ -69,7 +72,7 @@ export class MobileControlPadPlugin extends Phaser.Plugins.ScenePlugin {
       })
     // up button
     const upButton = this.scene.add
-      .circle(x, y - 30, bigButtonRadius)
+      .circle(x, y - 45, bigButtonRadius)
       .setScrollFactor(0)
       .setInteractive()
       .on('pointerdown', () => {
@@ -87,40 +90,64 @@ export class MobileControlPadPlugin extends Phaser.Plugins.ScenePlugin {
 
     // attack left button
     const attackLeftButton = this.scene.add
-      .circle(x - 62, y - 30, smallButtonRadius)
+      .circle(x - 62, y - 34, smallButtonRadius)
       .setScrollFactor(0)
       .setInteractive()
       .on('pointerdown', () => {
         this.keys.attack = true
+        this.keys.attackLeft = true
       })
       .on('pointerover', () => {
         this.keys.attack = true
+        this.keys.attackLeft = true
       })
       .on('pointerup', () => {
         this.keys.attack = false
+        this.keys.attackLeft = false
       })
       .on('pointerout', () => {
         this.keys.attack = false
+        this.keys.attackLeft = false
       })
 
     // attack right button
     const attackRightButton = this.scene.add
-      .circle(x + 62, y - 30, smallButtonRadius)
+      .circle(x + 62, y - 34, smallButtonRadius)
       .setScrollFactor(0)
       .setInteractive()
       .on('pointerdown', () => {
         this.keys.attack = true
+        this.keys.attackRight = true
       })
       .on('pointerover', () => {
         this.keys.attack = true
+        this.keys.attackRight = true
       })
       .on('pointerup', () => {
         this.keys.attack = false
+        this.keys.attackRight = false
       })
       .on('pointerout', () => {
         this.keys.attack = false
+        this.keys.attackRight = false
       })
 
+    const defendButton = this.scene.add
+      .circle(x, y + 70, smallButtonRadius)
+      .setScrollFactor(0)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.keys.defend = true
+      })
+      .on('pointerover', () => {
+        this.keys.defend = true
+      })
+      .on('pointerup', () => {
+        this.keys.defend = false
+      })
+      .on('pointerout', () => {
+        this.keys.defend = false
+      })
 
 
   }

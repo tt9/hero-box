@@ -23,10 +23,11 @@ export class BattleScene extends ParentScene {
 
   create() {
     super.create()
-
     this.input.addPointer(3)
 
-    const { width, height } = this.gameDimensions
+    const { width: gameWidth } = this.gameDimensions
+
+    // any cast to 
     const add = this.add as any
 
     const map = new BattleMap(this).create()
@@ -43,33 +44,23 @@ export class BattleScene extends ParentScene {
       this.physics.add.collider(warrior, map.groundLayer, null, null, this)
 
     }
-
-    this.physics.add.collider(this.hero, map.groundLayer, (hero: any, tile: any) => {
-      if (hero.y <= tile.pixelY)
-        this.hero.hasTouchedGround = true
-    }, null, this)
-    this.physics.add.collider(golem1, map.groundLayer, null, null, this)
-    this.physics.add.collider(this.hero, map.topcollisionLayer, (hero: any, tile: any) => {
-
-      this.hero.hasTouchedGround = true
+    map.registerStandardCollisions(this.childObjects, (character: any, mapItem: any) => {
+      character.hasTouchedGroundSinceLastJump = true
     })
+
 
     let cameraFollowOffset = -50
 
     if (isMobile) {
-      this.mobileControlPadPlugin.addControlPad(width / 2, 325)
+      this.mobileControlPadPlugin.addControlPad(gameWidth / 2, 325)
     } else {
-      // TODO: create a non-mobile version perhaps
-      // increase the viewport size as well.  
       cameraFollowOffset = 50
     }
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels * 2)
-
     this.cameras.main.startFollow(this.hero, false, 1, 1, 0, cameraFollowOffset)
 
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-
     this.graphics = this.add.graphics()
 
   }

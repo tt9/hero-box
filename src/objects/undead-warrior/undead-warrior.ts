@@ -15,6 +15,11 @@ export class UndeadWarrior extends SpriteParent {
 
   create(): void {
     //
+    const body = this.getBody()
+
+    body.setSize(14, 24)
+    body.setOffset(40, 10)
+
   }
 
 

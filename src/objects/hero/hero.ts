@@ -2,6 +2,7 @@ import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
 import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
+import { SpriteDirection } from '../sprite-direction'
 import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
 import { SpriteParent } from '../sprite-parent'
 import { HeroAnimations, HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig, HeroSlideAnimationConfig } from './hero-animations'
@@ -10,17 +11,32 @@ export class Hero extends SpriteParent {
 
   private health = 100
 
-  private attackDurationFrames = 24
-  private attackDelayFrames = 45
-  private lastAttackFrame = Number.MIN_SAFE_INTEGER
+  private attackDelayMs = 1000
+  private lastAttackMs = Number.MIN_SAFE_INTEGER
 
-  private jumpDurationFrames = 40
-  private jumpDelayFrames = 40
-  private lastJumpFrame = Number.MIN_SAFE_INTEGER
-  public hasTouchedGround = true
+
+  private jumpDelayMs = 1000
+  private lastJumpMs = Number.MIN_SAFE_INTEGER
+  public hasTouchedGroundSinceLastJump = true
+
 
   public isSliding = false
   public canSlide = true
+
+  public xSpeedRun = 125
+  public ySpeedJump = 350
+  public xDragRun = 315
+
+  protected _facingDirection: SpriteDirection = 'right'
+
+  public get facingDirection() {
+    return this._facingDirection
+  }
+
+  public set facingDirection(val: SpriteDirection) {
+    this.setFlipX(val === 'left')
+    this._facingDirection = val
+  }
 
   private keys: Phaser.Types.Input.Keyboard.CursorKeys
 
@@ -28,12 +44,13 @@ export class Hero extends SpriteParent {
   public readonly scene: ParentScene
 
   get isAttacking() {
-    return this.frameCount - this.lastAttackFrame < this.attackDurationFrames
+    return this.anims.currentAnim &&
+      this.anims.currentAnim.key === HeroAttack1AnimationConfig.key &&
+      this.now - this.lastAttackMs < this.anims.currentAnim.duration
   }
 
   get isMoving() {
-    const { left, right, up, down } = this.keys
-
+    const { left, right, up } = this.keys
     const {
       left: padLeft,
       right: padRight
@@ -41,22 +58,11 @@ export class Hero extends SpriteParent {
     return left.isDown || right.isDown || up.isDown || padLeft || padRight
   }
 
-  get isJumping() {
-    return this.frameCount - this.lastJumpFrame < this.jumpDurationFrames
-  }
-
-  get canJump() {
-    return !this.isJumping && this.hasTouchedGround
-  }
 
   constructor(scene: ParentScene, x: number, y: number) {
     super(scene, x, y, Assets.HeroTextureAtlasKey)
     this.scene = scene
     this.keys = this.scene.input.keyboard.createCursorKeys()
-  }
-
-  playSlideAnimation() {
-    this.setFrame('adventurer-slide-00')
   }
 
   create() {
@@ -69,10 +75,26 @@ export class Hero extends SpriteParent {
 
   }
 
+  attack(now: number) {
+    if (!this.isAttacking &&
+      now - this.lastAttackMs > this.attackDelayMs) {
+      this.lastAttackMs = now
+      this.play(HeroAttack1AnimationConfig.key, true)
+    }
+  }
+
+  jump(now: number) {
+    if (this.hasTouchedGroundSinceLastJump &&
+      now - this.lastJumpMs > this.jumpDelayMs) {
+      this.hasTouchedGroundSinceLastJump = false
+      this.lastJumpMs = now
+      this.getBody().setVelocityY(-350)
+      this.play(HeroJumpAnimationConfig.key, true)
+    }
+  }
+
   update() {
-
-
-
+    const now = this.scene.time.now
     const body = this.getBody()
     this.frameCount++
     const { left, right, up, space, down } = this.keys
@@ -93,12 +115,12 @@ export class Hero extends SpriteParent {
         body.setDrag(15, 0)
       } else {
         this.isSliding = false
-        body.setDrag(325, 10)
+        body.setDrag(this.xDragRun, 10)
         this.canSlide = false
       }
     } else {
       this.isSliding = false
-      body.setDrag(325, 10)
+      body.setDrag(this.xDragRun, 10)
     }
 
     if (!down.isDown && !defend) {
@@ -107,54 +129,43 @@ export class Hero extends SpriteParent {
 
 
     if (!this.isSliding && (left.isDown || padLeft)) {
-      body.setVelocityX(-125)
-      // body.setAccelerationX(-325)
-      this.setFlipX(true)
-
+      body.setVelocityX(-this.xSpeedRun)
+      this.facingDirection = 'left'
     } else if (!this.isSliding && (right.isDown || padRight)) {
-      body.setVelocityX(125)
-
-      // body.setAccelerationX(325)
-      this.setFlipX(false)
-
-    } else {
-      // body.setAccelerationX(0)
+      body.setVelocityX(this.xSpeedRun)
+      this.facingDirection = 'right'
     }
 
 
     if (attackLeft)
-      this.setFlipX(true)
+      this.facingDirection = 'left'
     if (attackRight)
-      this.setFlipX(false)
+      this.facingDirection = 'right'
 
-    if ((up.isDown || padUp) && this.canJump) {
-      if (this.frameCount - this.lastJumpFrame > this.jumpDelayFrames) {
-        this.hasTouchedGround = false
-        body.setVelocityY(-350)
-        this.lastJumpFrame = this.frameCount
-      }
+    if ((up.isDown || padUp)) {
+      this.jump(now)
     }
 
-
-    if (space.isDown || padAttack) {
-      if (this.frameCount - this.lastAttackFrame > this.attackDelayFrames) {
-        body.setDrag(325, 10)
-        this.isSliding = false
-        this.lastAttackFrame = this.frameCount
-      }
+    if ((space.isDown || padAttack)) {
+      this.attack(now)
     }
 
 
     if (this.isAttacking) {
-      this.playAnimation(HeroAttack1AnimationConfig)
-    } else if (this.isJumping || !this.hasTouchedGround) {
-      this.playAnimation(HeroJumpAnimationConfig)
+      // No op
+    } else if (!this.hasTouchedGroundSinceLastJump) {
+      // If this is still in the midst of jumping
+      // but the animation is done, we'll keep the
+      // frame at the very end
+      if (now - this.lastJumpMs > this.anims.currentAnim.duration) {
+        this.setFrame(this.anims.currentAnim.getLastFrame().textureFrame)
+      }
     } else if (this.isSliding) {
-      this.playAnimation(HeroSlideAnimationConfig)
+      this.play(HeroSlideAnimationConfig.key, true)
     } else if (this.isMoving) {
-      this.playAnimation(HeroRunAnimationConfig)
+      this.play(HeroRunAnimationConfig.key, true)
     } else {
-      this.playAnimation(HeroIdleAnimationConfig)
+      this.play(HeroIdleAnimationConfig.key, true)
     }
 
     // health bar

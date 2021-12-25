@@ -56,24 +56,17 @@ export class BattleMap {
 
         body.y += body.height
       })
-      // this.topcollisionLayer.forEach(item => item.)
-      // this.groundLayer.forEachTile(tile => {
-
-      //   debugger
-
-      //   tile.collideDown = false
-      //   tile.collideUp = true
-      //   tile.collideLeft = false
-      //   tile.collideRight = false
-
-      //   tile.faceTop = true
-      //   tile.faceBottom = false
-      //   tile.faceLeft = false
-      //   tile.faceRight = false
-      // })
     })
 
     return this
 
+  }
+
+  registerStandardCollisions(obj: Phaser.GameObjects.GameObject[] | Phaser.GameObjects.GameObject, cb?: any) {
+
+    this.scene.physics.add.collider(obj, this.groundLayer, cb)
+    this.scene.physics.add.collider(obj, this.topcollisionLayer, cb)
+
+    return this
   }
 }

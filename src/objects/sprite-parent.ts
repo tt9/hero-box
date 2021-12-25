@@ -3,9 +3,15 @@ import { ParentScene } from '../scenes/parent-scene'
 import { SpriteAnimationConfig } from './sprite-animation-config'
 
 export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
-  public currentAnimationKey: string = null
+  public get currentAnimationKey() {
+    if (this.anims.currentAnim)
+      return this.anims.currentAnim.key
+  }
   public frameCount = 0
 
+  get now() {
+    return this.scene.time.now
+  }
 
   constructor(scene: ParentScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture)
@@ -21,11 +27,10 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
 
   stopAnimations() {
     this.stop()
-    this.currentAnimationKey = null
+
   }
 
   playAnimation(config: SpriteAnimationConfig) {
-
     const { key, repeat } = config
     const stopFirst = repeat > -1
     if (!this.anims.currentAnim || this.anims.currentAnim.key !== key) {
@@ -33,7 +38,6 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
         this.stopAnimations()
       }
       this.play(key)
-      this.currentAnimationKey = key
     }
   }
 

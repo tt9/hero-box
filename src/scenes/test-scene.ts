@@ -82,10 +82,6 @@ export class TestScene extends ParentScene {
     this.childObjects.push(golem1)
 
 
-    this.physics.add.collider(this.hero, groundLayer, (hero: any, tile: any) => {
-      if (hero.y <= tile.pixelY)
-        this.hero.hasTouchedGround = true
-    }, null, this)
 
     this.physics.add.collider(golem1, groundLayer, null, null, this)
 

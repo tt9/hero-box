@@ -21,6 +21,7 @@ export class BattleScene extends ParentScene {
   }
 
   create() {
+    super.create()
     const { width, height } = this.gameDimensions
 
     const add = this.add as any
@@ -76,10 +77,12 @@ export class BattleScene extends ParentScene {
 
   }
 
-  update(time: number, delta: number): void {
+  update(): void {
+
     this.graphics.clear()
     this.childObjects.forEach(obj => obj.update())
     this.childObjects = this.childObjects.filter(obj => !!obj.scene)
+
   }
 }
 

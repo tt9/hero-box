@@ -1,9 +1,23 @@
 import * as Phaser from 'phaser'
+import { ParentScene } from '../scenes/parent-scene'
 import { SpriteAnimationConfig } from './sprite-animation-config'
 
 export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
   public currentAnimationKey: string = null
   public frameCount = 0
+
+
+  constructor(scene: ParentScene, x: number, y: number, texture: string) {
+    super(scene, x, y, texture)
+
+    this.scene.events.on('update', () => {
+      if (scene.debugGraphics) {
+        const body = this.getBody()
+        scene.debugGraphics.lineStyle(1, 0x00ff00, 1)
+        scene.debugGraphics.strokeRect(body.x, body.y, body.width, body.height)
+      }
+    })
+  }
 
   stopAnimations() {
     this.stop()

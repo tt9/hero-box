@@ -148,7 +148,7 @@ export class Hero extends SpriteParent {
     if (this.isAttacking) {
       this.playAnimation(HeroAttack1AnimationConfig)
     } else if (this.isJumping || !this.hasTouchedGround) {
-      this.playAnimation(HeroRunAnimationConfig)
+      this.playAnimation(HeroJumpAnimationConfig)
     } else if (this.isSliding) {
       this.playAnimation(HeroSlideAnimationConfig)
     } else if (this.isMoving) {
@@ -160,11 +160,6 @@ export class Hero extends SpriteParent {
     // health bar
     this.scene.graphics.fillStyle(0x00ff00)
     this.scene.graphics.fillRect(body.x - 7, body.y - 5, 28, 4)
-
-    // hit box debugging
-    // this.scene.graphics.lineStyle(1, 0xff00ff, .8)
-    // this.scene.graphics.strokeRect(body.x, body.y, body.width, body.height)
-
 
   }
 

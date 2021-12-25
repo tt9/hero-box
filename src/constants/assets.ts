@@ -1,5 +1,6 @@
 export const Assets = {
   HeroTextureAtlasKey: 'hero',
+  UndeadWarriorTextureAtlasKey: 'undead-warrior',
 
   MountainBackgroundImageKey: 'mountain-background',
   MountainForegroundTreesImageKey: 'mountain-foreground-trees',

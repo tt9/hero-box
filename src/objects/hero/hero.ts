@@ -1,10 +1,12 @@
 import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
-import { GameObjectParent } from '../game-object-parent'
-import { HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig, HeroSlideAnimationConfig } from './hero-animations'
+import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
+import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
+import { SpriteParent } from '../sprite-parent'
+import { HeroAnimations, HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig, HeroSlideAnimationConfig } from './hero-animations'
 
-export class Hero extends GameObjectParent {
+export class Hero extends SpriteParent {
 
   private health = 100
 
@@ -53,32 +55,7 @@ export class Hero extends GameObjectParent {
     this.keys = this.scene.input.keyboard.createCursorKeys()
   }
 
-
-
-  playRunAnimation() {
-    const { key } = HeroRunAnimationConfig
-    this.playAnimation(key)
-  }
-
-  playJumpAnimation() {
-    const { key } = HeroJumpAnimationConfig
-    this.playAnimation(key)
-  }
-
-
-  playIdleAnimation() {
-    const { key } = HeroIdleAnimationConfig
-    this.playAnimation(key, true)
-  }
-
-  playAttackAnimation() {
-    const { key } = HeroAttack1AnimationConfig
-    this.playAnimation(key, true)
-  }
-
   playSlideAnimation() {
-    // const { key } = HeroSlideAnimationConfig
-    // this.playAnimation(key, false)
     this.setFrame('adventurer-slide-00')
   }
 
@@ -89,8 +66,6 @@ export class Hero extends GameObjectParent {
     body.setSize(14, 30)
     body.setDrag(325, 10)
     body.setMaxVelocityX(125)
-
-
 
   }
 
@@ -171,15 +146,15 @@ export class Hero extends GameObjectParent {
 
 
     if (this.isAttacking) {
-      this.playAttackAnimation()
+      this.playAnimation(HeroAttack1AnimationConfig)
     } else if (this.isJumping || !this.hasTouchedGround) {
-      this.playJumpAnimation()
+      this.playAnimation(HeroRunAnimationConfig)
     } else if (this.isSliding) {
-      this.playSlideAnimation()
+      this.playAnimation(HeroSlideAnimationConfig)
     } else if (this.isMoving) {
-      this.playRunAnimation()
+      this.playAnimation(HeroRunAnimationConfig)
     } else {
-      this.playIdleAnimation()
+      this.playAnimation(HeroIdleAnimationConfig)
     }
 
     // health bar
@@ -194,82 +169,9 @@ export class Hero extends GameObjectParent {
   }
 
 
-
   static init(global: Phaser.Scene) {
-
-    Phaser.GameObjects.GameObjectFactory.register('hero', function (x: number, y: number) {
-      const hero = new Hero(this.scene, x, y)
-
-      this.displayList.add(hero)
-      this.updateList.add(hero)
-
-      if (this.scene.physics)
-        this.scene.physics.add.existing(hero)
-
-      hero.create()
-
-      return hero
-    })
-
-    global.anims.create({
-      key: HeroRunAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
-        prefix: HeroRunAnimationConfig.prefix,
-        end: HeroRunAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: -1,
-      frameRate: HeroRunAnimationConfig.frameRate
-    })
-
-    global.anims.create({
-      key: HeroIdleAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
-        prefix: HeroIdleAnimationConfig.prefix,
-        end: HeroIdleAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: -1,
-      frameRate: HeroIdleAnimationConfig.frameRate
-    })
-
-    global.anims.create({
-      key: HeroAttack1AnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
-        prefix: HeroAttack1AnimationConfig.prefix,
-        end: HeroAttack1AnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: 0,
-      frameRate: HeroAttack1AnimationConfig.frameRate
-    })
-
-    global.anims.create({
-      key: HeroJumpAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
-        prefix: HeroJumpAnimationConfig.prefix,
-        end: HeroJumpAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: 0,
-      frameRate: HeroJumpAnimationConfig.frameRate
-    })
-
-    global.anims.create({
-      key: HeroSlideAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.HeroTextureAtlasKey, {
-        prefix: HeroSlideAnimationConfig.prefix,
-        end: HeroSlideAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: -1,
-      frameRate: HeroSlideAnimationConfig.frameRate
-    })
+    SpriteGameObjectFactoryInstance.register('hero', Hero)
+    SpriteAnimationFactoryInstance.createAll(global, HeroAnimations)
   }
 }
 

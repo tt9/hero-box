@@ -46,6 +46,14 @@ export class BattleScene extends ParentScene {
     const golem1 = add.fireGolem(600, 100)
     this.childObjects.push(golem1)
 
+    for (let i = 0; i < 6; i++) {
+      const warrior = add.undeadWarrior(100 * i, 100)
+      this.childObjects.push(warrior)
+      this.physics.add.collider(warrior, groundLayer, null, null, this)
+
+    }
+
+
     this.physics.add.collider(this.hero, groundLayer, (hero: any, tile: any) => {
       if (hero.y <= tile.pixelY)
         this.hero.hasTouchedGround = true

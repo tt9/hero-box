@@ -1,11 +1,13 @@
 import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
-import { GameObjectParent } from '../game-object-parent'
-import { FireGolemIdleAnimationConfig, FireGolemRunAnimationConfig } from './fire-golem-animations'
+import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
+import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
+import { SpriteParent } from '../sprite-parent'
+import { FireGolemAnimations, FireGolemIdleAnimationConfig, FireGolemRunAnimationConfig } from './fire-golem-animations'
 
 
-export class FireGolem extends GameObjectParent {
+export class FireGolem extends SpriteParent {
 
   public readonly scene: ParentScene
 
@@ -21,7 +23,7 @@ export class FireGolem extends GameObjectParent {
     if (body)
       body.setCollideWorldBounds(true)
 
-    this.playAnimation(FireGolemIdleAnimationConfig.key)
+    this.playAnimation(FireGolemIdleAnimationConfig)
   }
 
   update() {
@@ -45,57 +47,19 @@ export class FireGolem extends GameObjectParent {
         this.moving = false
       }
 
-
-
     }
 
-
     if (this.moving) {
-      this.playAnimation(FireGolemRunAnimationConfig.key)
+      this.playAnimation(FireGolemRunAnimationConfig)
     } else {
-      this.playAnimation(FireGolemIdleAnimationConfig.key)
+      this.playAnimation(FireGolemIdleAnimationConfig)
     }
   }
 
 
   static init(global: Phaser.Scene) {
-    Phaser.GameObjects.GameObjectFactory.register('fireGolem', function (x: number, y: number) {
-      const npc = new FireGolem(this.scene, x, y)
-
-      this.displayList.add(npc)
-      this.updateList.add(npc)
-
-      if (this.scene.physics)
-        this.scene.physics.add.existing(npc)
-
-      npc.create()
-
-      return npc
-    })
-
-    global.anims.create({
-      key: FireGolemIdleAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.FireGolemTextureAtlasKey, {
-        prefix: FireGolemIdleAnimationConfig.prefix,
-        end: FireGolemIdleAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: -1,
-      frameRate: FireGolemIdleAnimationConfig.frameRate
-    })
-
-    global.anims.create({
-      key: FireGolemRunAnimationConfig.key,
-      frames: global.anims.generateFrameNames(Assets.FireGolemTextureAtlasKey, {
-        prefix: FireGolemRunAnimationConfig.prefix,
-        end: FireGolemRunAnimationConfig.frameMax,
-        start: 0,
-        zeroPad: 2
-      }),
-      repeat: -1,
-      frameRate: FireGolemRunAnimationConfig.frameRate
-    })
+    SpriteGameObjectFactoryInstance.register('fireGolem', FireGolem)
+    SpriteAnimationFactoryInstance.createAll(global, FireGolemAnimations)
   }
 
 }

@@ -4,6 +4,7 @@ import { Assets } from '../constants/assets'
 import { Scenes } from '../constants/scenes'
 import { FireGolem } from '../objects/fire-golem/fire-golem'
 import { Hero } from '../objects/hero/hero'
+import { UndeadWarrior } from '../objects/undead-warrior/undead-warrior'
 
 // All initial asset loading should be dispatched through this scene
 // if there are exceptions make special note of it
@@ -32,6 +33,7 @@ export class PreloadScene extends Phaser.Scene {
     // Load assets
     this.load.atlas(Assets.HeroTextureAtlasKey, './assets/hero/hero.png', './assets/hero/hero.json')
     this.load.atlas(Assets.FireGolemTextureAtlasKey, './assets/fire-golem/fire-golem.png', './assets/fire-golem/fire-golem.json')
+    this.load.atlas(Assets.UndeadWarriorTextureAtlasKey, './assets/undead-warrior/undead-warrior.png', './assets/undead-warrior/undead-warrior.json')
 
     this.load.image(Assets.MountainBackgroundImageKey, './assets/mountain-bg/parallax-mountain-bg.png')
     this.load.image(Assets.MountainForegroundTreesImageKey, './assets/mountain-bg/parallax-mountain-foreground-trees.png')
@@ -90,7 +92,8 @@ export class PreloadScene extends Phaser.Scene {
      */
     this.gameObjectInitializer([
       Hero,
-      FireGolem
+      FireGolem,
+      UndeadWarrior
     ])
 
     // this.scene.start(Scenes.TestScene)

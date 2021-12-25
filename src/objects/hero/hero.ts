@@ -9,7 +9,6 @@ import { HeroAnimations, HeroAttack1AnimationConfig, HeroIdleAnimationConfig, He
 
 export class Hero extends SpriteParent {
 
-  private health = 100
 
   private attackDelayMs = 1000
   private lastAttackMs = Number.MIN_SAFE_INTEGER
@@ -26,6 +25,9 @@ export class Hero extends SpriteParent {
   public xSpeedRun = 125
   public ySpeedJump = 350
   public xDragRun = 315
+
+  public healthBarWidth = 28
+  public health = 80
 
   protected _facingDirection: SpriteDirection = 'right'
 
@@ -169,9 +171,10 @@ export class Hero extends SpriteParent {
     }
 
     // health bar
+    this.scene.graphics.fillStyle(0xff0000)
+    this.scene.graphics.fillRect(body.x - 7, body.y - 5, this.healthBarWidth, 4)
     this.scene.graphics.fillStyle(0x00ff00)
-    this.scene.graphics.fillRect(body.x - 7, body.y - 5, 28, 4)
-
+    this.scene.graphics.fillRect(body.x - 7, body.y - 5, (this.health / 100) * this.healthBarWidth, 4)
   }
 
 

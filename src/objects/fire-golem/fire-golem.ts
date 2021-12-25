@@ -20,8 +20,10 @@ export class FireGolem extends SpriteParent {
 
   create(): void {
     const body = this.getBody()
-    if (body)
+    if (body) {
       body.setCollideWorldBounds(true)
+      body.setSize(32, 48)
+    }
 
     this.playAnimation(FireGolemIdleAnimationConfig)
   }

@@ -22,11 +22,11 @@ export class BattleScene extends ParentScene {
 
   create() {
     super.create()
+
+    this.input.addPointer(3)
+
     const { width, height } = this.gameDimensions
-
     const add = this.add as any
-
-
 
     const map = this.make.tilemap({ key: Assets.BattleMapTileMapKey })
     const platformerTileset = map.addTilesetImage(Assets.PlatformTilesImageKey, Assets.PlatformTilesImageKey)

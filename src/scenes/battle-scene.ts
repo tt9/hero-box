@@ -3,6 +3,7 @@ import { Assets } from '../constants/assets'
 import { Scenes } from '../constants/scenes'
 import { ParentScene } from './parent-scene'
 import { isMobile } from 'mobile-device-detect'
+import { BattleMap } from '../maps/battle-map'
 
 export class BattleScene extends ParentScene {
 
@@ -28,18 +29,7 @@ export class BattleScene extends ParentScene {
     const { width, height } = this.gameDimensions
     const add = this.add as any
 
-    const map = this.make.tilemap({ key: Assets.BattleMapTileMapKey })
-    const platformerTileset = map.addTilesetImage(Assets.PlatformTilesImageKey, Assets.PlatformTilesImageKey)
-    const skyTileset = map.addTilesetImage(Assets.BackgroundSkyImageKey, Assets.BackgroundSkyImageKey)
-
-    const skyLayer = map.createLayer('sky', skyTileset, 0, 0)
-    const cloudLayer = map.createLayer('clouds', platformerTileset, 0, 0)
-    const groundFakeLayer = map.createLayer('groundfake', platformerTileset, 0, 0)
-    const treesLayer = map.createLayer('trees', platformerTileset, 0, 0)
-
-    const groundLayer = map.createLayer('ground', platformerTileset, 0, 0)
-    groundLayer.setCollisionByExclusion([-1], true)
-
+    const map = new BattleMap(this).create()
 
     this.hero = add.hero(400, 100)
     this.childObjects.push(this.hero)
@@ -50,28 +40,35 @@ export class BattleScene extends ParentScene {
     for (let i = 0; i < 6; i++) {
       const warrior = add.undeadWarrior(100 * i, 100)
       this.childObjects.push(warrior)
-      this.physics.add.collider(warrior, groundLayer, null, null, this)
+      this.physics.add.collider(warrior, map.groundLayer, null, null, this)
 
     }
 
-
-    this.physics.add.collider(this.hero, groundLayer, (hero: any, tile: any) => {
+    this.physics.add.collider(this.hero, map.groundLayer, (hero: any, tile: any) => {
       if (hero.y <= tile.pixelY)
         this.hero.hasTouchedGround = true
     }, null, this)
-    this.physics.add.collider(golem1, groundLayer, null, null, this)
+    this.physics.add.collider(golem1, map.groundLayer, null, null, this)
+    this.physics.add.collider(this.hero, map.topcollisionLayer, (hero: any, tile: any) => {
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels * 2)
-    this.cameras.main.startFollow(this.hero, false, 1, 1, 0, -50)
+      this.hero.hasTouchedGround = true
+    })
 
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+    let cameraFollowOffset = -50
 
     if (isMobile) {
       this.mobileControlPadPlugin.addControlPad(width / 2, 325)
     } else {
       // TODO: create a non-mobile version perhaps
       // increase the viewport size as well.  
+      cameraFollowOffset = 50
     }
+
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels * 2)
+
+    this.cameras.main.startFollow(this.hero, false, 1, 1, 0, cameraFollowOffset)
+
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
     this.graphics = this.add.graphics()
 

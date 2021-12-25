@@ -25,5 +25,7 @@ export const Assets = {
   BackgroundTrees2ImageKey: 'bg-trees2',
   BackgroundCloudsImageKey: 'clouds',
   BackgroundSkyImageKey: 'sky',
-  BackgroundSky2ImageKey: 'sky2'
+  BackgroundSky2ImageKey: 'sky2',
+
+  InvisibleImageKey: 'invisible'
 }

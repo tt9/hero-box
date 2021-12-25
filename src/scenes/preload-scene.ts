@@ -58,6 +58,7 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image(Assets.BackgroundCloudsImageKey, './assets/maps/clouds.png')
     this.load.image(Assets.BackgroundSkyImageKey, './assets/maps/sky.png')
     this.load.image(Assets.BackgroundSky2ImageKey, './assets/maps/sky2.png')
+    this.load.image(Assets.InvisibleImageKey, './assets/invisible.png')
 
     this.load.on('progress', () => this.updateBar())
     this.load.on('complete', () => this.complete())

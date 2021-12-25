@@ -45,7 +45,7 @@ export const HeroSlideAnimationConfig: SpriteAnimationConfig = {
   frameMax: 1,
   frameRate: 8,
   prefix: 'adventurer-slide-',
-  repeat: 1
+  repeat: 100
 }
 
 export const HeroAnimations = [

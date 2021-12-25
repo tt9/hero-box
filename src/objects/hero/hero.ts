@@ -9,15 +9,12 @@ import { HeroAnimations, HeroAttack1AnimationConfig, HeroIdleAnimationConfig, He
 
 export class Hero extends SpriteParent {
 
-
   private attackDelayMs = 1000
   private lastAttackMs = Number.MIN_SAFE_INTEGER
-
 
   private jumpDelayMs = 1000
   private lastJumpMs = Number.MIN_SAFE_INTEGER
   public hasTouchedGroundSinceLastJump = true
-
 
   public isSliding = false
   public canSlide = true
@@ -28,6 +25,13 @@ export class Hero extends SpriteParent {
 
   public healthBarWidth = 28
   public health = 80
+
+  public attackHitBox: Phaser.GameObjects.Rectangle
+  public get attackHitBoxBody() {
+    if (this.attackHitBox)
+      return this.attackHitBox.body as Phaser.Physics.Arcade.Body
+  }
+  public attackHitBoxXOffset = 12
 
   protected _facingDirection: SpriteDirection = 'right'
 
@@ -75,6 +79,10 @@ export class Hero extends SpriteParent {
     body.setDrag(325, 10)
     body.setMaxVelocityX(125)
 
+    this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 8, 20, 0xff00ff)
+    this.scene.physics.add.existing(this.attackHitBox)
+    const attackHitBoxBody = this.getBody(this.attackHitBox)
+    attackHitBoxBody.setAllowGravity(false)
   }
 
   attack(now: number) {
@@ -82,6 +90,8 @@ export class Hero extends SpriteParent {
       now - this.lastAttackMs > this.attackDelayMs) {
       this.lastAttackMs = now
       this.play(HeroAttack1AnimationConfig.key, true)
+
+
     }
   }
 
@@ -152,7 +162,10 @@ export class Hero extends SpriteParent {
       this.attack(now)
     }
 
-
+    if (!this.isAttacking && this.attackHitBox) {
+      // this.attackHitBox.destroy(true)
+      // this.attackHitBox = null
+    }
     if (this.isAttacking) {
       // No op
     } else if (!this.hasTouchedGroundSinceLastJump) {
@@ -175,6 +188,21 @@ export class Hero extends SpriteParent {
     this.scene.graphics.fillRect(body.x - 7, body.y - 5, this.healthBarWidth, 4)
     this.scene.graphics.fillStyle(0x00ff00)
     this.scene.graphics.fillRect(body.x - 7, body.y - 5, (this.health / 100) * this.healthBarWidth, 4)
+
+    // attack hitbox
+    if (this.attackHitBox) {
+      let attackHitBoxX = this.x
+      if (this.facingDirection === 'left')
+        attackHitBoxX -= this.attackHitBoxXOffset
+      else
+        attackHitBoxX += this.attackHitBoxXOffset
+
+      this.attackHitBox.setPosition(attackHitBoxX, this.y)
+
+
+      // this.scene.graphics.lineStyle(2, 0xffff00, .9)
+      // this.scene.graphics.strokeRect(x, y, width, height)
+    }
   }
 
 

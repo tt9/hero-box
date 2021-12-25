@@ -32,7 +32,7 @@ export class BattleScene extends ParentScene {
 
     const map = new BattleMap(this).create()
 
-    this.hero = add.hero(400, 100)
+    this.hero = add.hero(400, 300)
     this.childObjects.push(this.hero)
 
     const golem1 = add.fireGolem(600, 100)

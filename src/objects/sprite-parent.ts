@@ -41,7 +41,9 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
     }
   }
 
-  getBody(): Phaser.Physics.Arcade.Body {
+  getBody(child?: any): Phaser.Physics.Arcade.Body {
+    if (child)
+      return child.body as Phaser.Physics.Arcade.Body
     return this.body as Phaser.Physics.Arcade.Body
   }
 

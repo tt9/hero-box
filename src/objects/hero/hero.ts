@@ -1,15 +1,17 @@
 import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
+import { CanBattle, CanBattleMixin } from '../attributes/can-battle'
+import { BattleEvaluatorInstance } from '../battle-evaluator'
 import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
 import { SpriteDirection } from '../sprite-direction'
 import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
 import { SpriteParent } from '../sprite-parent'
 import { HeroAnimations, HeroAttack1AnimationConfig, HeroIdleAnimationConfig, HeroJumpAnimationConfig, HeroRunAnimationConfig, HeroSlideAnimationConfig } from './hero-animations'
 
-export class Hero extends SpriteParent {
+export class Hero extends CanBattleMixin(SpriteParent) {
 
-  private attackDelayMs = 1000
+  private attackDelayMs = 600
   private lastAttackMs = Number.MIN_SAFE_INTEGER
 
   private jumpDelayMs = 1000
@@ -21,10 +23,9 @@ export class Hero extends SpriteParent {
 
   public xSpeedRun = 125
   public ySpeedJump = 350
-  public xDragRun = 315
+  public xDragRun = 700
 
   public healthBarWidth = 28
-  public health = 80
 
   public attackHitBox: Phaser.GameObjects.Rectangle
   public get attackHitBoxBody() {
@@ -76,13 +77,15 @@ export class Hero extends SpriteParent {
     if (body)
       body.setCollideWorldBounds(true)
     body.setSize(14, 30)
-    body.setDrag(325, 10)
+    body.setDrag(this.xDragRun, 10)
     body.setMaxVelocityX(125)
 
-    this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 8, 20, 0xff00ff)
+    this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 20, 20)
     this.scene.physics.add.existing(this.attackHitBox)
+
     const attackHitBoxBody = this.getBody(this.attackHitBox)
     attackHitBoxBody.setAllowGravity(false)
+    this.attackPoints = 25
   }
 
   attack(now: number) {
@@ -91,7 +94,12 @@ export class Hero extends SpriteParent {
       this.lastAttackMs = now
       this.play(HeroAttack1AnimationConfig.key, true)
 
-
+      this.scene.heroAttackableObjects.forEach(obj => {
+        const overlaps = this.scene.physics.overlap(this.attackHitBox, obj)
+        if (overlaps) {
+          BattleEvaluatorInstance.apply(this, obj)
+        }
+      })
     }
   }
 
@@ -146,6 +154,8 @@ export class Hero extends SpriteParent {
     } else if (!this.isSliding && (right.isDown || padRight)) {
       body.setVelocityX(this.xSpeedRun)
       this.facingDirection = 'right'
+    } else if (!this.isSliding) {
+      // body.setVelocityX(0)
     }
 
 
@@ -184,10 +194,11 @@ export class Hero extends SpriteParent {
     }
 
     // health bar
-    this.scene.graphics.fillStyle(0xff0000)
-    this.scene.graphics.fillRect(body.x - 7, body.y - 5, this.healthBarWidth, 4)
-    this.scene.graphics.fillStyle(0x00ff00)
-    this.scene.graphics.fillRect(body.x - 7, body.y - 5, (this.health / 100) * this.healthBarWidth, 4)
+    // this.scene.graphics.fillStyle(0xff0000)
+    // this.scene.graphics.fillRect(body.x - 7, body.y - 5, this.healthBarWidth, 4)
+    // this.scene.graphics.fillStyle(0x00ff00)
+    // this.scene.graphics.fillRect(body.x - 7, body.y - 5, (this.healthPoints / this.maxHealthPoints) * this.healthBarWidth, 4)
+    this.renderHealthBar()
 
     // attack hitbox
     if (this.attackHitBox) {

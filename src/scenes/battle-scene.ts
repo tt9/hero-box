@@ -7,8 +7,6 @@ import { BattleMap } from '../maps/battle-map'
 
 export class BattleScene extends ParentScene {
 
-  private childObjects: Phaser.GameObjects.GameObject[] = []
-
   get gameDimensions(): { width: number, height: number } {
     return {
       width: this.game.config.width as number,
@@ -33,21 +31,22 @@ export class BattleScene extends ParentScene {
     const map = new BattleMap(this).create()
 
     this.hero = add.hero(400, 300)
-    this.childObjects.push(this.hero)
+    this.updateableObjects.push(this.hero)
 
     const golem1 = add.fireGolem(600, 100)
-    this.childObjects.push(golem1)
+    this.updateableObjects.push(golem1)
+    this.heroAttackableObjects.push(golem1)
 
     for (let i = 0; i < 6; i++) {
       const warrior = add.undeadWarrior(100 * i, 100)
-      this.childObjects.push(warrior)
+      this.updateableObjects.push(warrior)
       this.physics.add.collider(warrior, map.groundLayer, null, null, this)
-
+      this.heroAttackableObjects.push(warrior)
     }
-    map.registerStandardCollisions(this.childObjects, (character: any, mapItem: any) => {
+
+    map.registerStandardCollisions(this.updateableObjects, (character: any, mapItem: any) => {
       character.hasTouchedGroundSinceLastJump = true
     })
-
 
     let cameraFollowOffset = -50
 
@@ -66,11 +65,10 @@ export class BattleScene extends ParentScene {
   }
 
   update(): void {
-
     this.graphics.clear()
-    this.childObjects.forEach(obj => obj.update())
-    this.childObjects = this.childObjects.filter(obj => !!obj.scene)
-
+    this.updateableObjects.forEach(obj => obj.update())
+    this.updateableObjects = this.updateableObjects.filter(obj => !!obj.scene)
+    this.heroAttackableObjects = this.heroAttackableObjects.filter(obj => !!obj.scene)
   }
 }
 

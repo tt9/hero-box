@@ -2,7 +2,7 @@ import * as Phaser from 'phaser'
 import { ParentScene } from '../scenes/parent-scene'
 import { SpriteAnimationConfig } from './sprite-animation-config'
 
-export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
+export class SpriteParent extends Phaser.GameObjects.Sprite {
   public get currentAnimationKey() {
     if (this.anims.currentAnim)
       return this.anims.currentAnim.key
@@ -13,7 +13,7 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
     return this.scene.time.now
   }
 
-  constructor(scene: ParentScene, x: number, y: number, texture: string) {
+  constructor(public scene: ParentScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture)
 
     this.scene.events.on('update', () => {
@@ -27,7 +27,6 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
 
   stopAnimations() {
     this.stop()
-
   }
 
   playAnimation(config: SpriteAnimationConfig) {
@@ -47,5 +46,5 @@ export abstract class SpriteParent extends Phaser.GameObjects.Sprite {
     return this.body as Phaser.Physics.Arcade.Body
   }
 
-  abstract create(): void;
+  create(): void { };
 }

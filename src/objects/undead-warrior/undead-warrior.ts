@@ -5,9 +5,10 @@ import { UndeadWarriorAnimations, UndeadWarriorAttackAnimationConfig, UndeadWarr
 import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
 import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
 import { ParentScene } from '../../scenes/parent-scene'
+import { CanBattleMixin } from '../attributes/can-battle'
 
 
-export class UndeadWarrior extends SpriteParent {
+export class UndeadWarrior extends CanBattleMixin(SpriteParent) {
 
   constructor(scene: ParentScene, x: number, y: number) {
     super(scene, x, y, Assets.UndeadWarriorTextureAtlasKey)
@@ -26,6 +27,8 @@ export class UndeadWarrior extends SpriteParent {
   update() {
     //
     this.playAnimation(UndeadWarriorIdleAnimationConfig)
+
+    this.renderHealthBar()
   }
 
   static init(global: Phaser.Scene) {

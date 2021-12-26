@@ -8,6 +8,8 @@ import { OverworldScene } from './scenes/overworld-scene'
 import { MobileControlPadPlugin } from './plugins/mobile-control-pad-plugin'
 import { BattleScene } from './scenes/battle-scene'
 
+declare const __DEBUG_MODE__: boolean
+
 const config = {
   type: Phaser.AUTO,
   scale: {
@@ -28,7 +30,7 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: GameConfig.gravity,
-      debug: false
+      debug: __DEBUG_MODE__
     }
   },
   plugins: {

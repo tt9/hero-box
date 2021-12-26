@@ -1,13 +1,14 @@
 import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
 import { ParentScene } from '../../scenes/parent-scene'
+import { CanBattleMixin } from '../attributes/can-battle'
 import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
 import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
 import { SpriteParent } from '../sprite-parent'
 import { FireGolemAnimations, FireGolemIdleAnimationConfig, FireGolemRunAnimationConfig } from './fire-golem-animations'
 
 
-export class FireGolem extends SpriteParent {
+export class FireGolem extends CanBattleMixin(SpriteParent) {
 
   public readonly scene: ParentScene
 
@@ -26,6 +27,7 @@ export class FireGolem extends SpriteParent {
     }
 
     this.playAnimation(FireGolemIdleAnimationConfig)
+    this.defensePoints = 10
   }
 
   update() {
@@ -56,6 +58,8 @@ export class FireGolem extends SpriteParent {
     } else {
       this.playAnimation(FireGolemIdleAnimationConfig)
     }
+
+    this.renderHealthBar()
   }
 
 

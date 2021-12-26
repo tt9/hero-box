@@ -46,5 +46,7 @@ export class SpriteParent extends Phaser.GameObjects.Sprite {
     return this.body as Phaser.Physics.Arcade.Body
   }
 
-  create(): void { };
+  create(): void {
+    //
+  }
 }

@@ -32,7 +32,7 @@ export class Hero extends CanBattleMixin(SpriteParent) {
     if (this.attackHitBox)
       return this.attackHitBox.body as Phaser.Physics.Arcade.Body
   }
-  public attackHitBoxXOffset = 12
+  public attackHitBoxXOffset = 6
 
   protected _facingDirection: SpriteDirection = 'right'
 
@@ -80,7 +80,7 @@ export class Hero extends CanBattleMixin(SpriteParent) {
     body.setDrag(this.xDragRun, 10)
     body.setMaxVelocityX(125)
 
-    this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 20, 20)
+    this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 30, 28)
     this.scene.physics.add.existing(this.attackHitBox)
 
     const attackHitBoxBody = this.getBody(this.attackHitBox)
@@ -210,9 +210,6 @@ export class Hero extends CanBattleMixin(SpriteParent) {
 
       this.attackHitBox.setPosition(attackHitBoxX, this.y)
 
-
-      // this.scene.graphics.lineStyle(2, 0xffff00, .9)
-      // this.scene.graphics.strokeRect(x, y, width, height)
     }
   }
 

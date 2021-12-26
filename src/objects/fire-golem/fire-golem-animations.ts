@@ -29,8 +29,29 @@ export const FireGolemAttack1AnimationConfig: SpriteAnimationConfig = {
   repeat: 0
 }
 
+export const FireGolemHitAnimationConfig: SpriteAnimationConfig = {
+  key: 'fire-golem-hit',
+  atlasKey: Assets.FireGolemTextureAtlasKey,
+  frameMax: 2,
+  frameRate: 8,
+  prefix: 'fire-golem-hurt-',
+  repeat: 2
+}
+
+export const FireGolemDieAnimationConfig: SpriteAnimationConfig = {
+  key: 'fire-golem-die',
+  atlasKey: Assets.FireGolemTextureAtlasKey,
+  frameMax: 6,
+  frameRate: 12,
+  prefix: 'fire-golem-die-',
+  repeat: 0
+}
+
+
 export const FireGolemAnimations = [
   FireGolemAttack1AnimationConfig,
   FireGolemIdleAnimationConfig,
-  FireGolemRunAnimationConfig
+  FireGolemRunAnimationConfig,
+  FireGolemHitAnimationConfig,
+  FireGolemDieAnimationConfig
 ]

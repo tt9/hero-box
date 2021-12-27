@@ -3,6 +3,7 @@ import { ParentScene } from '../scenes/parent-scene'
 import { SpriteAnimationConfig } from './sprite-animation-config'
 
 export class SpriteParent extends Phaser.GameObjects.Sprite {
+
   public get currentAnimationKey() {
     if (this.anims.currentAnim)
       return this.anims.currentAnim.key
@@ -13,15 +14,15 @@ export class SpriteParent extends Phaser.GameObjects.Sprite {
     return this.scene.time.now
   }
 
-  constructor(public scene: ParentScene, x: number, y: number, texture: string) {
+  constructor(
+    public scene: ParentScene,
+    x: number,
+    y: number,
+    texture: string
+  ) {
     super(scene, x, y, texture)
-
     this.scene.events.on('update', () => {
-      if (scene.debugGraphics) {
-        const body = this.getBody()
-        scene.debugGraphics.lineStyle(1, 0x00ff00, 1)
-        scene.debugGraphics.strokeRect(body.x, body.y, body.width, body.height)
-      }
+      this.update()
     })
   }
 
@@ -48,5 +49,8 @@ export class SpriteParent extends Phaser.GameObjects.Sprite {
 
   create(): void {
     //
+  }
+  update(): void {
+    // 
   }
 }

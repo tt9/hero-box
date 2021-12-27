@@ -17,11 +17,16 @@ export class BattleScene extends ParentScene {
 
   constructor() {
     super({ key: Scenes.BattleScene })
+
   }
 
   create() {
     super.create()
     this.input.addPointer(3)
+
+    this.events.on('preupdate', () => {
+      this.graphics.clear()
+    })
 
     const { width: gameWidth } = this.gameDimensions
 
@@ -65,8 +70,8 @@ export class BattleScene extends ParentScene {
   }
 
   update(): void {
-    this.graphics.clear()
-    this.updateableObjects.forEach(obj => obj.update())
+    // this.graphics.clear()
+    // this.updateableObjects.forEach(obj => obj.update())
     this.updateableObjects = this.updateableObjects.filter(obj => !!obj.scene)
     this.heroAttackableObjects = this.heroAttackableObjects.filter(obj => !!obj.scene)
   }

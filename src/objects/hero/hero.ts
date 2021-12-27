@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser'
 import { Assets } from '../../constants/assets'
+
 import { ParentScene } from '../../scenes/parent-scene'
-import { CanBattle, CanBattleMixin } from '../attributes/can-battle'
-import { BattleEvaluatorInstance } from '../battle-evaluator'
+import { CanBattleMixin } from '../attributes/can-battle'
 import { SpriteAnimationFactoryInstance } from '../sprite-animation-factory'
 import { SpriteDirection } from '../sprite-direction'
 import { SpriteGameObjectFactoryInstance } from '../sprite-game-object-factory'
@@ -50,12 +50,6 @@ export class Hero extends CanBattleMixin(SpriteParent) {
 
   public readonly scene: ParentScene
 
-  get isAttacking() {
-    return this.anims.currentAnim &&
-      this.anims.currentAnim.key === HeroAttack1AnimationConfig.key &&
-      this.now - this.lastAttackMs < this.anims.currentAnim.duration
-  }
-
   get isMoving() {
     const { left, right, up } = this.keys
     const {
@@ -68,7 +62,6 @@ export class Hero extends CanBattleMixin(SpriteParent) {
 
   constructor(scene: ParentScene, x: number, y: number) {
     super(scene, x, y, Assets.HeroTextureAtlasKey)
-    this.scene = scene
     this.keys = this.scene.input.keyboard.createCursorKeys()
   }
 
@@ -83,25 +76,17 @@ export class Hero extends CanBattleMixin(SpriteParent) {
     this.attackHitBox = this.scene.add.rectangle(this.x, this.y, 30, 28)
     this.scene.physics.add.existing(this.attackHitBox)
 
+    // Set override properties here
+    this.attackPoints = 25
+
+    this.attackAnimationDuration =
+      this.scene.anims.get(HeroAttack1AnimationConfig.key).duration
+
     const attackHitBoxBody = this.getBody(this.attackHitBox)
     attackHitBoxBody.setAllowGravity(false)
-    this.attackPoints = 25
   }
 
-  attack(now: number) {
-    if (!this.isAttacking &&
-      now - this.lastAttackMs > this.attackDelayMs) {
-      this.lastAttackMs = now
-      this.play(HeroAttack1AnimationConfig.key, true)
 
-      this.scene.heroAttackableObjects.forEach(obj => {
-        const overlaps = this.scene.physics.overlap(this.attackHitBox, obj)
-        if (overlaps) {
-          BattleEvaluatorInstance.apply(this, obj)
-        }
-      })
-    }
-  }
 
   jump(now: number) {
     if (this.hasTouchedGroundSinceLastJump &&
@@ -169,14 +154,16 @@ export class Hero extends CanBattleMixin(SpriteParent) {
     }
 
     if ((space.isDown || padAttack)) {
-      this.attack(now)
+      this.attack(this.scene.heroAttackableObjects, () => {
+        this.play(HeroAttack1AnimationConfig.key, true)
+      })
     }
 
     if (!this.isAttacking && this.attackHitBox) {
       // this.attackHitBox.destroy(true)
       // this.attackHitBox = null
     }
-    if (this.isAttacking) {
+    if (this.isCurrentlyAnimatingAttack) {
       // No op
     } else if (!this.hasTouchedGroundSinceLastJump) {
       // If this is still in the midst of jumping
@@ -193,11 +180,6 @@ export class Hero extends CanBattleMixin(SpriteParent) {
       this.play(HeroIdleAnimationConfig.key, true)
     }
 
-    // health bar
-    // this.scene.graphics.fillStyle(0xff0000)
-    // this.scene.graphics.fillRect(body.x - 7, body.y - 5, this.healthBarWidth, 4)
-    // this.scene.graphics.fillStyle(0x00ff00)
-    // this.scene.graphics.fillRect(body.x - 7, body.y - 5, (this.healthPoints / this.maxHealthPoints) * this.healthBarWidth, 4)
     this.renderHealthBar()
 
     // attack hitbox
@@ -209,7 +191,6 @@ export class Hero extends CanBattleMixin(SpriteParent) {
         attackHitBoxX += this.attackHitBoxXOffset
 
       this.attackHitBox.setPosition(attackHitBoxX, this.y)
-
     }
   }
 

@@ -3,7 +3,6 @@ import { CanBattle } from '../objects/attributes/can-battle'
 import { Hero } from '../objects/hero/hero'
 import { MobileControlPadPlugin } from '../plugins/mobile-control-pad-plugin'
 
-declare const __DEBUG_MODE__: boolean
 /**
  * Helper type to define plugin properties
  */

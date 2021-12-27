@@ -13,7 +13,7 @@ export const UndeadWarriorRunAnimationConfig: SpriteAnimationConfig = {
 export const UndeadWarriorAttackAnimationConfig: SpriteAnimationConfig = {
   key: 'undead-warrior-attack',
   atlasKey: Assets.UndeadWarriorTextureAtlasKey,
-  frameMax: 5,
+  frameMax: 4,
   frameRate: 12,
   prefix: 'undead-warrior-attack-',
   repeat: 0

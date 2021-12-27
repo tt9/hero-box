@@ -13,9 +13,7 @@ export class FireGolem extends CanBattleMixin(SpriteParent) {
   public readonly scene: ParentScene
 
   public moving = false
-
   public startedDying = false
-
   public hitFrames = Number.MAX_SAFE_INTEGER
   public hitDuration = 25
 
@@ -33,6 +31,7 @@ export class FireGolem extends CanBattleMixin(SpriteParent) {
   }
 
   create(): void {
+    super.create()
     const body = this.getBody()
     if (body) {
       body.setCollideWorldBounds(true)
@@ -58,7 +57,7 @@ export class FireGolem extends CanBattleMixin(SpriteParent) {
   }
 
   update() {
-
+    super.update()
     const body = this.getBody()
     const attackDistance = 25
 

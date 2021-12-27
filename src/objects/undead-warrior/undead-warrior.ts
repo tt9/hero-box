@@ -8,6 +8,7 @@ import { ParentScene } from '../../scenes/parent-scene'
 import { CanBattleMixin } from '../attributes/can-battle'
 
 
+
 export class UndeadWarrior extends CanBattleMixin(SpriteParent) {
 
   constructor(scene: ParentScene, x: number, y: number) {
@@ -15,19 +16,19 @@ export class UndeadWarrior extends CanBattleMixin(SpriteParent) {
   }
 
   create(): void {
-    //
+    super.create()
     const body = this.getBody()
-
     body.setSize(14, 24)
     body.setOffset(40, 10)
-
   }
 
+  displayHit(): void {
+    // 
+  }
 
   update() {
-    //
+    super.update()
     this.playAnimation(UndeadWarriorIdleAnimationConfig)
-
     this.renderHealthBar()
   }
 

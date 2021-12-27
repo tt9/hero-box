@@ -12,7 +12,7 @@ module.exports = merge( commonConfig,  {
   },
   plugins: [
     new DefinePlugin({
-      __DEBUG_MODE__: true
+      __DEBUG_MODE__: process.env.DEBUG
     })
   ]
 })

@@ -25,7 +25,7 @@ export const FireGolemAttack1AnimationConfig: SpriteAnimationConfig = {
   atlasKey: Assets.FireGolemTextureAtlasKey,
   frameMax: 6,
   frameRate: 12,
-  prefix: 'fire-golem-attack1-',
+  prefix: 'fire-golem-attack-',
   repeat: 0
 }
 
